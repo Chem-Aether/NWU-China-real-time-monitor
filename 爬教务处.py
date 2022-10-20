@@ -1,7 +1,6 @@
 #爬虫模块
 import requests  
 from bs4 import BeautifulSoup 
-import os
 #发邮件模块
 import smtplib
 from email.mime.text import MIMEText
@@ -16,10 +15,10 @@ def Sendmessage(msg, From_content, To_content, subject, Form,sender, receivers, 
     smtp.login(sender, password)
     smtp.sendmail(sender, receivers, message.as_string())
     smtp.quit()
-#设置发件人，password为邮箱授权码，设置编码格式，编辑邮件内容和标题
-sender = '1296359097@qq.com'
-password = 'wxogkfyzyzvxghde'
-receivers = ['3254806570@qq.com']
+#设置发件人，password为邮箱授权码，receeivers为收件人列表，最多十个。设置编码格式，编辑邮件内容和标题
+sender = 'xxxxxxxxxxxxx@qq.com'
+password = 'xxxxxxxxxx'
+receivers = ['xxxxxxxx@qq.com']
 From_content = 'Aether-supper-bot'
 To_content = ' '
 subject = '西北大学教务处通知监听机器人'
@@ -38,7 +37,6 @@ soup = BeautifulSoup(response.text,'lxml')
 
 #保存日志
 def Save_summary(tips):
-    os.chdir("E:\文件\学习\编程学习\python学习项目\爬教务处消息 并发邮件")
     f = open('教务处通知日志.txt','a',encoding='UTF-8')
     f.write(tips)
     f.close()
