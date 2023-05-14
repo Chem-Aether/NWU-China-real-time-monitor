@@ -6,23 +6,27 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 #定义发邮件函数
-def Sendmessage(msg, From_content, To_content, subject, Form,sender, receivers, password):
-    message = MIMEText(msg, 'html', Form)
-    message['From'] = Header(From_content, Form)
-    message['To'] = Header(To_content, Form)
-    message['Subject'] = Header(subject, Form)
+def Sendmessage(msg, From_content, To_content, subject, Form,sender, receivers,password):
+    message = MIMEText(tips, 'html')
+    message['From'] = Header(From_content)
+    message['To'] = Header(To_content)
+    message['Subject'] = Header(subject)
     smtp = smtplib.SMTP_SSL('smtp.qq.com', 465)
     smtp.login(sender, password)
     smtp.sendmail(sender, receivers, message.as_string())
     smtp.quit()
-#设置发件人，password为邮箱授权码，eceives为收件人列表，设置编码格式，编辑邮件内容和标题
-sender = 'xxxxxx@qq.com'
-password = 'xxxxxxxx'
-receivers = ['xxxxxxx@qq.com']      #不建议设置过多收件人，会引发QQ频率检测
-From_content = 'Aether-supper-bot'
+#设置发件人，password为邮箱授权码，设置编码格式，编辑邮件内容和标题
+sender = '发件人邮箱'
+
+#1296359097
+password = '授权码'
+receivers = ['收件人列表]
+From_content = 'ABC 1296359097@qq.com'
 To_content = ' '
 subject = '西北大学教务处通知监听机器人'
 Form = 'utf-8'
+tips = "你好，这是邮件发送程序测试"
+
 
 #请求头
 headers = {
@@ -33,10 +37,11 @@ headers = {
 url = 'https://jwc.nwu.edu.cn/'
 response = requests.get(url, headers=headers)  
 response.encoding = 'utf-8'
-soup = BeautifulSoup(response.text,'lxml')
+soup = BeautifulSoup(response.text,'html.parser')
 
 #保存日志
 def Save_summary(tips):
+    #os.chdir("E:\文件\学习\编程学习\python学习项目\爬教务处消息 并发邮件")
     f = open('教务处通知日志.txt','a',encoding='UTF-8')
     f.write(tips)
     f.close()
